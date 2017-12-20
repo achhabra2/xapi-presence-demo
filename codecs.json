@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Aman RoomKit",
+    "ip": "10.10.100.199",
+    "username": "rkadmin",
+    "password": "Spark!23",
+    "url": "http://localhost:3000/presence"
+  }
+]

@@ -12,11 +12,16 @@ server.listen(3003);
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 
+
+app.post('/codecs', (req, res) => {
+
+})
+
 io.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
 });
 
-const codecs = codecsList.map(codec => new Codec({io, ...codec}));
+const codecs = codecsList.map(codec => new Codec({ io, ...codec }));
 
 for (const codec of codecs) {
   codec.init();

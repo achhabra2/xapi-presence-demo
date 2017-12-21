@@ -1,0 +1,10 @@
+[
+  {
+    "name": "CODEC NAME",
+    "ip": "10.10.10.10",
+    "username": "admin",
+    "password": "password",
+    "macAddress": "00:00:00:00:00:00",
+    "feedbackUrl": "optional"
+  }
+]

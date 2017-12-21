@@ -4,6 +4,7 @@
     "ip": "10.10.100.199",
     "username": "rkadmin",
     "password": "Spark!23",
-    "url": "http://localhost:3000/presence"
+    "macAddress": "B0:26:80:08:99:A6",
+    "feedbackUrl": "http://localhost:3000/presence"
   }
 ]

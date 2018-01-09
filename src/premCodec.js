@@ -24,7 +24,7 @@ class Codec {
       throw e
     }
   }
-
+  
   async deregisterFeedback(url) {
     let res;
     try {

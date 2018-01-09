@@ -4,6 +4,7 @@ const { Codec } = require('./src/sparkCodec');
 const express = require('express');
 const path = require('path');
 const app = express();
+const _ = require('lodash');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const codecsList = require('./codecs.json');
@@ -18,7 +19,11 @@ app.post('/codecs', (req, res) => {
 })
 
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
+  socket.emit('hello', { world: true });
+  socket.on('getCodecs', () => {
+    console.log('Sending Codecs');
+    io.emit('codecs', _.keyBy(codecs, 'ip'));
+  });
 });
 
 const codecs = codecsList.map(codec => new Codec({ io, ...codec }));

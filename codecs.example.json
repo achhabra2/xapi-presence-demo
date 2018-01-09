@@ -1,10 +1,17 @@
 [
   {
-    "name": "CODEC NAME",
+    "name": "REAL CODEC",
     "ip": "10.10.10.10",
     "username": "admin",
     "password": "password",
     "macAddress": "00:00:00:00:00:00",
     "feedbackUrl": "optional"
+  },
+  {
+    "name": "DEMO CODEC",
+    "ip": "10.10.10.10",
+    "username": "demo",
+    "password": "demo",
+    "macAddress": "DEMO"
   }
 ]

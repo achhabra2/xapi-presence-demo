@@ -1,6 +1,6 @@
 const { connect } = require('@cesw/jsxapi');
 const request = require('superagent');
-
+const { mockConnect } = require('./xapi');
 /**
  * Class wrapper for Cisco TP Codec
  * Convenience Methods for using xAPI
@@ -28,10 +28,15 @@ class Codec {
     this.macAddress = macAddress;
     io && (this.io = io);
     feedbackUrl && (this.feedbackUrl = feedbackUrl);
-    this.xapi = connect(this.ip, {
-      username: this.username,
-      password: this.password,
-    });
+    if (macAddress === 'DEMO') {
+      this.xapi = mockConnect();
+    }
+    else {
+      this.xapi = connect(this.ip, {
+        username: this.username,
+        password: this.password,
+      });
+    }
   }
 
   /**
@@ -54,6 +59,14 @@ class Codec {
     //   console.log(`Could not get MAC Address for codec ${this.name}`);
     // }
     this.registerFeedback(this.io);
+    try {
+      const status = await this.getStatus();
+      this.lastPresence = status[1];
+      this.lastCount = status[0];
+    }
+    catch (e) {
+      console.error('Could not fetch initial status');
+    }
   }
 
   /**
@@ -66,6 +79,7 @@ class Codec {
     this.presenceFeedback = this.xapi.status.on('RoomAnalytics', async (event) => {
       const payload = {
         codec: this.name,
+        ip: this.ip,
         macAddress: this.macAddress
       };
       if (event.hasOwnProperty('PeoplePresence')) {
@@ -84,7 +98,7 @@ class Codec {
           await request.post(this.feedbackUrl)
             .send(payload)
         }
-        catch(e) {
+        catch (e) {
           console.log(`Error sending feedback ${e}`);
         }
       }
@@ -113,6 +127,16 @@ class Codec {
     let presence = this.xapi.status
       .get('RoomAnalytics PeoplePresence')
     return Promise.all([count, presence]);
+  }
+
+  toJSON(key) {
+    return {
+      name: this.name,
+      ip: this.ip,
+      macAddress: this.macAddress,
+      lastPresence: this.lastPresence,
+      lastCount: this.lastCount
+    }
   }
 }
 

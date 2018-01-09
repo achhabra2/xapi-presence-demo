@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>xAPI People Count Demo</title>
 
     <script src="../dist/mapwize.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../dist/mapwize.css" />
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js" type="text/javascript"></script>
-		<script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js" integrity="sha256-WPeFPWD3PZQUDrpFnDM1N2KadNVwCfNS4cCZ78b76T8="
+        crossorigin="anonymous"></script>
+    <script src="./main.js" type="text/javascript"></script>
     <style>
         body {
             margin: 0;
             padding: 0;
         }
+
         #map {
-            position:absolute; top:0; bottom:0; width:100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
             height: 100%;
         }
 
@@ -25,105 +31,11 @@
     </style>
 
 </head>
+
 <body>
 
-<div id="map"></div>
-
-<script>
-
-		var socket = io.connect();
-		socket.on('news', function (data) {
-			console.log(data);
-			socket.emit('my other event', { my: 'data' });
-		});
-
-    var VENUEID = '5a4bef3d1d003100139e8f79'; //Demo venue
-
-    Mapwize.setApiKey('4ea25aee513eb288c47affd26a7988bf'); // PASTE YOU API KEY HERE !!! This is a demo key, giving you access to the demo building. It is not allowed to use it for production. The key might change at any time without notice.
-
-
-
-    var placeLayerByPlaceName = {};
-
-		//Call this function once to add the tooltip on the map
-    function addTooltipOnPlace(text, place, map) {
-        var placeLayer = L.GeoJSON.geometryToLayer(place.geometry);
-				//set style of new placeLayer to no style (no fill, no stroke) otherwise when binding a tooltip will create layer with default style
-				placeLayer.setStyle({
-            fillOpacity: 0,
-            opacity: 0
-        });
-        placeLayer.bindTooltip(text, {direction: 'top', permanent: true, className: 'tooltip'}).addTo(map);
-        placeLayerByPlaceName[place.name] = placeLayer;
-    }
-
-		//Call this function (incomplete) to update place style if we choose to.  Probably would be better to actually update with map.setPlaceStyle(placeId, style) since layer with tooltip is already defined as blank
-		function changeAvailability(place,map,availability) {
-			var placeLayer = L.GeoJSON.geometryToLayer(place.geometry);
-			//set style of current place
-			placeLayer.setStyle({
-					fillOpacity: 0,
-					opacity: 0
-			});
-
-			//Doc for setStyle: https://github.com/Mapwize/mapwize.js-dist/blob/master/doc/doc.md#_place-style
-			//Options for setStyle are:
-			//{
-			// 		markerUrl: string (An url to the icon of the marker. Must be an image, ideally png, square, 100*100 pixels),
-			//    strokeColor: string (The color of the shape border as #hex),
-			//    strokeOpacity: number (The opacity of the border, between 0 and 1),
-			//    strokeWidth: number (The width of the border),
-			//    fillColor: string (The color of the inside of the shape as #hex),
-			//    fillOpacity: number (The opacity of the inside, between 0 and 1),
-			//    labelBackgroundColor: string (The color of the backgroud of the label as #hex),
-			//    labelBackgroundOpacity: number (The opacity of the background of the label, between 0 and 1)
-			// }
-
-		}
-
-		//Call this function every time you want to update the tooltip text
-    function setTooltipContentOnPlace(text, place) {
-        var placeLayer = placeLayerByPlaceName[place.name];
-        placeLayer.setTooltipContent(text);
-    }
-
-		//Gets map data and boundaries
-    Mapwize.Api.getVenue(VENUEID, function (err, venue) {
-        if (err) {
-            console.error(err);
-        }
-
-        var venueBounds = new L.LatLngBounds(
-                new L.LatLng(venue.latitudeMin, venue.longitudeMin),
-                new L.LatLng(venue.latitudeMax, venue.longitudeMax)
-        );
-
-        //Create the map
-        var map = Mapwize.map('map', {});
-
-        //Fits the bounds of the map so the entire region is visible.
-        map.fitBounds(venueBounds);
-
-        //Retrieve the places of the venue
-        Mapwize.Api.getPlaces({venueId: VENUEID}, function (err, places) {
-						//Key all places by a data element to easily retrieve later
-						placesByIp = _.keyBy(places, 'data.ipAddress');
-
-            //Add some tooltips
-            addTooltipOnPlace('People Count:', placesByIp['192.168.99.10'], map);
-
-            var i = 1;
-            setInterval(function(){
-                setTooltipContentOnPlace( 'People Count: '+ i, placesByIp['192.168.99.10']);
-                i++;
-            }, 1000);
-
-        });
-
-
-    });
-
-</script>
+    <div id="map"></div>
 
 </body>
+
 </html>

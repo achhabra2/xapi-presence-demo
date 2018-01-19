@@ -39,12 +39,17 @@ class status extends EventEmitter {
   }
 
   start() {
-    setInterval(() => {
+    this.countInterval = setInterval(() => {
       this.emit('RoomAnalytics', status.countEvent())
     }, 10000 * Math.random() + 1000)
-    setInterval(() => {
+    this.presenceInterval = setInterval(() => {
       this.emit('RoomAnalytics', status.presenceEvent())
     }, 15000 * Math.random() + 1000)
+  }
+
+  stop() {
+    clearInterval(this.countInterval);
+    clearInterval(this.presenceInterval);
   }
 
   get(string) {

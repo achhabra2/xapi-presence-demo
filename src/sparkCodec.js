@@ -1,6 +1,7 @@
 const { connect } = require('@cesw/jsxapi');
 const request = require('superagent');
 const { mockConnect } = require('./xapi');
+
 /**
  * Class wrapper for Cisco TP Codec
  * Convenience Methods for using xAPI
@@ -76,7 +77,7 @@ class Codec {
    * @memberof Codec
    */
   registerFeedback(io) {
-    this.presenceFeedback = this.xapi.status.on('RoomAnalytics', async (event) => {
+    this.xapi.status.on('RoomAnalytics', async (event) => {
       const payload = {
         codec: this.name,
         ip: this.ip,
@@ -112,7 +113,14 @@ class Codec {
    * @memberof Codec
    */
   deregisterFeedback() {
-    return this.presenceFeedback();
+    if (this.macAddress !== 'DEMO') {
+      return this.presenceFeedback();
+    }
+    else {
+      this.xapi.status.removeAllListeners('RoomAnalytics');
+      this.xapi.status.stop();
+      return true;
+    }
   }
 
   /**

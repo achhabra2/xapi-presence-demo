@@ -1,4 +1,5 @@
 const { connect } = require('@cesw/jsxapi');
+const { connect } = require('@cesw/jsxapi');
 const request = require('superagent');
 const { mockConnect } = require('./xapi');
 /**
@@ -16,7 +17,7 @@ class Codec {
    * @param {string} codec.password
    * @param {string} codec.ip
    * @param {object} [codec.io]
-   * @param {string} [codec.feedbackUrl] 
+   * @param {string} [codec.feedbackUrl]
    * @memberof Codec
    */
   constructor(codec) {
@@ -70,8 +71,8 @@ class Codec {
   }
 
   /**
-   * 
-   * 
+   *
+   *
    * @param {object} io // Socket.io instance
    * @memberof Codec
    */
@@ -103,12 +104,25 @@ class Codec {
         }
       }
     });
+
+    this.pairingFeedback = this.xapi.feedback.on('Status/spark/paireddevice/userid', async (personid) => {
+      try {
+// NOTE: not sure how you want to set the url in your constructor, so I'm going to let you
+// set this yourself. Needs to go to https://cl-proxbot.herokuapp.com/sendto
+        console.log(`Sending POST Feedback to URL: ${this.feedbackUrl}`);
+        await request.post(this.feedbackUrl)
+          .send({personId: personid})
+      }
+      catch (e) {
+        console.log(`Error sending feedback ${e}`);
+      }
+    });
   }
 
   /**
-   * 
-   * 
-   * @returns 
+   *
+   *
+   * @returns
    * @memberof Codec
    */
   deregisterFeedback() {
@@ -116,9 +130,9 @@ class Codec {
   }
 
   /**
-   * 
-   * 
-   * @returns {Promise} // 
+   *
+   *
+   * @returns {Promise} //
    * @memberof Codec
    */
   async getStatus() {

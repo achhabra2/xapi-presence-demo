@@ -12,7 +12,9 @@ const codecsList = require('./codecs.json');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
-server.listen(3003);
+server.listen(3003, function() {
+    console.log('XAPI Presence Demo listening on port 3003.  Post codecs to /codecs');
+});
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 

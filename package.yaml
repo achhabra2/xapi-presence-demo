@@ -1,0 +1,25 @@
+descriptor-schema-version: "2.2"
+
+info:
+  name: xAPI Presence Connector
+  description: "Collect xAPI People Status from Endpoints, and re-deliver via WebSocket to local clients"
+  version: "1.0"
+  author-link: "http://www.cisco.com"
+  author-name: "Cisco Systems"
+
+app:
+  # Indicate app type (vm, paas, lxc etc.,)
+  cpuarch: "x86_64"
+  type: docker
+  resources:
+    profile: c1.small
+    network:
+      -
+        interface-name: eth0
+        ports:
+            tcp: [3003]
+
+# Specify runtime and startup
+  startup:
+    rootfs: rootfs.tar
+    target: ["node", "/opt/app/index.js"]

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "REAL CODEC",
+    "ip": "10.10.100.199",
+    "username": "admin",
+    "password": "password",
+    "macAddress": "DEMO"
+  },
+  {
+    "name": "DEMO CODEC",
+    "ip": "10.10.100.200",
+    "username": "demo",
+    "password": "demo",
+    "macAddress": "DEMO"
+  },
+	{
+    "name": "DEMO CODEC",
+    "ip": "192.168.99.2",
+    "username": "demo",
+    "password": "demo",
+    "macAddress": "DEMO"
+  }
+]

@@ -19,6 +19,14 @@ class xapi {
   }
 }
 
+// class feedback extends EventEmitter {
+//   static pairingEvent() {
+
+//   }
+
+
+// }
+
 class status extends EventEmitter {
 
   static countEvent() {

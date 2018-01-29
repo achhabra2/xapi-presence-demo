@@ -2,27 +2,6 @@
 # yarn lockfile v1
 
 
-"@cesw/jsxapi@^3.2.6":
-  version "3.2.6"
-  resolved "http://engci-maven.cisco.com/artifactory/api/npm/Lysaker-npm-group/@cesw/jsxapi/-/@cesw/jsxapi-3.2.6.tgz#0e8cedba07d30164f66951d3c8b89c9f7b014db6"
-  dependencies:
-    "@cesw/log" "^1.0.1"
-    babel-polyfill "^6.23.0"
-    commander "^2.9.0"
-    duplex-passthrough "^1.0.2"
-    duplexer "^0.1.1"
-    jsonparse "^1.3.1"
-    ssh2 "^0.5.4"
-    url-parse "^1.1.8"
-    ws "^3.3.2"
-    xml-escape "^1.1.0"
-
-"@cesw/log@^1.0.1":
-  version "1.0.1"
-  resolved "http://engci-maven.cisco.com/artifactory/api/npm/Lysaker-npm-group/@cesw/log/-/@cesw/log-1.0.1.tgz#7a57bca9014e359f1f39c751511b20bbe417813e"
-  dependencies:
-    loglevel "^1.6.0"
-
 accepts@1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.3.tgz#c3ca7434938648c3e0d9c1e328dd68b622c284ca"
@@ -60,21 +39,6 @@ async-limiter@~1.0.0:
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
-
-babel-polyfill@^6.23.0:
-  version "6.26.0"
-  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
-  dependencies:
-    babel-runtime "^6.26.0"
-    core-js "^2.5.0"
-    regenerator-runtime "^0.10.5"
-
-babel-runtime@^6.26.0:
-  version "6.26.0"
-  resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
-  dependencies:
-    core-js "^2.4.0"
-    regenerator-runtime "^0.11.0"
 
 backo2@1.0.2:
   version "1.0.2"
@@ -127,9 +91,9 @@ combined-stream@^1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^2.9.0:
-  version "2.12.2"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.2.tgz#0f5946c427ed9ec0d91a46bb9def53e54650e555"
+commander@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
 
 component-bind@1.0.0:
   version "1.0.0"
@@ -162,10 +126,6 @@ cookie@0.3.1:
 cookiejar@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/cookiejar/-/cookiejar-2.1.1.tgz#41ad57b1b555951ec171412a81942b1e8200d34a"
-
-core-js@^2.4.0, core-js@^2.5.0:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.3.tgz#8acc38345824f16d8365b7c9b4259168e8ed603e"
 
 core-util-is@~1.0.0:
   version "1.0.2"
@@ -382,13 +342,27 @@ jsonparse@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/jsonparse/-/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
 
+jsxapi@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/jsxapi/-/jsxapi-4.0.1.tgz#dbf60222a6b24b85e0c18c5272257e8cb58e2ab6"
+  dependencies:
+    commander "^2.13.0"
+    duplex-passthrough "^1.0.2"
+    duplexer "^0.1.1"
+    jsonparse "^1.3.1"
+    loglevel "^1.6.1"
+    ssh2 "^0.5.5"
+    url-parse "^1.2.0"
+    ws "^4.0.0"
+    xml-escape "^1.1.0"
+
 lodash@^4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
-loglevel@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.6.0.tgz#ae0caa561111498c5ba13723d6fb631d24003934"
+loglevel@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.6.1.tgz#e0fc95133b6ef276cdc8887cdaf24aa6f156f8fa"
 
 media-typer@0.3.0:
   version "0.3.0"
@@ -502,14 +476,6 @@ readable-stream@^2.0.5:
     string_decoder "~1.0.3"
     util-deprecate "~1.0.1"
 
-regenerator-runtime@^0.10.5:
-  version "0.10.5"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.5.tgz#336c3efc1220adcedda2c9fab67b5a7955a33658"
-
-regenerator-runtime@^0.11.0:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
-
 requires-port@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
@@ -610,7 +576,7 @@ ssh2-streams@~0.1.18:
     semver "^5.1.0"
     streamsearch "~0.1.2"
 
-ssh2@^0.5.4:
+ssh2@^0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.5.5.tgz#c7781ecd2ece7304a253cf620fab5a5c22bb2235"
   dependencies:
@@ -674,7 +640,7 @@ unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
 
-url-parse@^1.1.8:
+url-parse@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.2.0.tgz#3a19e8aaa6d023ddd27dcc44cb4fc8f7fec23986"
   dependencies:
@@ -697,7 +663,15 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
-ws@^3.3.2, ws@~3.3.1:
+ws@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-4.0.0.tgz#bfe1da4c08eeb9780b986e0e4d10eccd7345999f"
+  dependencies:
+    async-limiter "~1.0.0"
+    safe-buffer "~5.1.0"
+    ultron "~1.1.0"
+
+ws@~3.3.1:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/ws/-/ws-3.3.3.tgz#f1cf84fe2d5e901ebce94efaece785f187a228f2"
   dependencies:

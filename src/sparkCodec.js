@@ -50,15 +50,23 @@ class Codec {
     console.log('Setting Presence / PeopleCount to ON...');
     this.xapi.config.set('RoomAnalytics PeoplePresenceDetector', 'On');
     this.xapi.config.set('RoomAnalytics PeopleCountOutOfCall', 'On');
-    // try {
-    //   const address = await this.xapi.status
-    //     .get('Ethernet MacAddress')
-    //   this.mac = address;
-    //   console.log(`Found MAC for codec ${this.name}: ${this.mac}`);
-    // }
-    // catch (e) {
-    //   console.log(`Could not get MAC Address for codec ${this.name}`);
-    // }
+
+    this.xapi.on('error', (err) => {
+      switch (err) {
+        case "client-socket":
+          console.error(`Could not connect to ${this.name}: invalid URL.`);
+
+        case "client-authentication":
+          console.error(`Could not connect to ${this.name}: invalid credentials`);
+
+        case "client-timeout":
+          console.error(`Could not connect to ${this.name}: timeout`);
+
+        default:
+          console.error(`Could not connect to ${this.name}: ${err}`);
+      }
+    });
+
     this.registerFeedback(this.io);
     try {
       const status = await this.getStatus();
@@ -105,18 +113,22 @@ class Codec {
       }
     });
 
-    this.pairingFeedback = this.xapi.feedback.on('Status/spark/paireddevice/userid', async (personid) => {
-      try {
-// NOTE: not sure how you want to set the url in your constructor, so I'm going to let you
-// set this yourself. Needs to go to https://cl-proxbot.herokuapp.com/sendto
-        console.log(`Sending POST Feedback to URL: ${this.feedbackUrl}`);
-        await request.post(this.feedbackUrl)
-          .send({personId: personid})
-      }
-      catch (e) {
-        console.log(`Error sending feedback ${e}`);
-      }
-    });
+    // Disable for DEMO Codecs until mock is complete
+    if (this.macAddress !== 'DEMO') {
+      this.pairingFeedback = this.xapi.feedback.on('Status/spark/paireddevice/userid', async (personId) => {
+        try {
+          // NOTE: not sure how you want to set the url in your constructor, so I'm going to let you
+          // set this yourself. Needs to go to https://cl-proxbot.herokuapp.com/sendto
+          console.log(`Person paired: ${personId}`);
+          // Posting directly for CLEU
+          await request.post('https://cl-proxbot.herokuapp.com/sendto')
+            .send({ personId })
+        }
+        catch (e) {
+          console.log(`Error sending feedback ${e}`);
+        }
+      });
+    }
   }
 
   /**

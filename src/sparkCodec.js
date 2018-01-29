@@ -1,5 +1,4 @@
 const { connect } = require('@cesw/jsxapi');
-const { connect } = require('@cesw/jsxapi');
 const request = require('superagent');
 const { mockConnect } = require('./xapi');
 /**
